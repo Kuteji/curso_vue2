@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .like{
+            background: green;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">{{ texto }}</div>
+    <div id="app2">{{ texto }}</div>
+
+    <main>
+
+        <hr>
+        <h1>Listado por ajax</h1>
+
+            <ol>
+                <li v-for="(post, index) in posts">
+                    {{ post.title }}     
+                </li>
+            </ol> 
+        <hr>
+
+    <!--Propiedades computadas-->
+
+        <h1>{{nombreYapellidos}}</h1>
+
+        <h1>Productos</h1>
+        <input type="search" v-model="busquedaCategoria" placeholder="buscar por categoria...">
+        <ol v-if="posts">
+            <li v-for="(producto, index) in buscarCategoria">
+                {{ producto.nombre }} 
+            </li>
+        </ol> 
+        <span v-else>Cargando Listado por ajax</span>
+
+        <hr/>
+
+        <h1>Frutas</h1>
+        <input type="search" v-model="busqueda" placeholder="buscar fruta">
+        <h1>Listado Ordenado De Frutas</h1>
+        <ol>
+        <!--La directiva v-bind accede al binding de vue para añadir atributos-->    
+            <li @click="marcar(index)" v-bind:class="{like: index == confirmado}" v-for="(fruta, index) in buscarFruta">
+                {{ fruta.nombre | mayusculas }} <!--Le pasamos un filtro como parametro que convierte el valor del primer parametro a mayusculas--> 
+            </li>
+        </ol> 
+   
+
+        <hr/>
+
+    <!--Eventos -->
+        <h1>Peliculas</h1>
+
+        <ol>
+            <li v-for="(pelicula, index) in peliculas">{{ pelicula }}
+                <button @click="borrarPelicula(index)"> Eliminar Pelicula</button>
+            </li>
+        </ol> 
+    
+        <form @submit.prevent="crearPelicula()">
+            <input type="text" v-model="peliculaNueva">
+            <input type="submit" value="Guardar Peli">
+        </form>
+
+        <hr/>
+    
+    <!--Interpolacion o imprimir el contenido de una variable del modelo / instancia vue-->
+        <h1>{{ texto }}</h1>
+        <h2 v-text="texto"></h2>
+        <hr/>
+
+    <!--Two way data binding / enlace de datos bidireccional-->
+        <input type="text" v-model="nombre"> <!--v-model hace referencia a una propiedad del objeto data-->
+        <p>El Nombre es: {{ nombre }}</p>
+        <br/>
+    
+    <!--Directivas condicionales v-if-->
+        <input type="text" v-model="nota">
+        <strong v-if="nota && nota <= 99">¡Tu nota es mayor a {{nota-1}} En Hora Buena</strong>
+        <span v-else-if="nota == 100">¡Excelente Buen trabajo!</span>
+        <span v-else>Has suspendido</span>
+        <hr/>
+    <!--directiva de bucles v-for-->
+        <h1>Listado de peliculas (array)</h1>
+        <ol>
+            <li v-for="pelicula in peliculas">{{ pelicula }}</li>
+        </ol> 
+
+        <h1>Listado de frutas (array -objetos)</h1>
+        <ul>
+            <li v-for="(fruta, index) in frutas">
+              {{index}}:  {{ fruta.nombre }} - {{ fruta.temporada}}
+            </li>
+        </ul>   
+
+        <h1>Listado de elementos de superfruta (objeto)</h1>
+        <ul>
+            <li v-for="(value, key, index) in superfruta">
+              {{index}}:  {{ key }} - {{ value }}
+            </li>
+        </ul>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
