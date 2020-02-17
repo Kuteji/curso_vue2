@@ -17,17 +17,18 @@
     <div id="app">{{ texto }}</div>
     <div id="app2">{{ texto }}</div>
 
+    <hr>
+
     <main>
 
-        <hr>
-        <h1>Listado por ajax</h1>
+        <articulos></articulos>
+        <frutas></frutas>
+      
 
-            <ol>
-                <li v-for="(post, index) in posts">
-                    {{ post.title }}     
-                </li>
-            </ol> 
         <hr>
+       
+        <hr>
+
 
     <!--Propiedades computadas-->
 
@@ -35,12 +36,12 @@
 
         <h1>Productos</h1>
         <input type="search" v-model="busquedaCategoria" placeholder="buscar por categoria...">
-        <ol v-if="posts">
+        <ol>
             <li v-for="(producto, index) in buscarCategoria">
                 {{ producto.nombre }} 
             </li>
         </ol> 
-        <span v-else>Cargando Listado por ajax</span>
+
 
         <hr/>
 

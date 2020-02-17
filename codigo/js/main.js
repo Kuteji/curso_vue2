@@ -1,4 +1,40 @@
 
+// crear un componente
+Vue.component('articulos',{
+    template: `
+       <div class="componente-pelis">
+            <h1>Componente {{ titulo }} </h1>
+
+            <h1>Listado</h1>
+
+            <ol v-if="posts">
+                <li v-for="(post, index) in posts">
+                    {{ post.title }}     
+                </li>
+            </ol> 
+            <span v-else>Cargando Listado por ajax</span>
+       </div>
+    `,
+    mounted(){
+
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then( (respuesta) => {
+                this.posts = respuesta.data;
+            });
+    },
+    data(){
+        return {
+            titulo: 'Articulos',
+            posts: null,
+        }
+    }
+});
+
+Vue.component('frutas',{
+    template: `
+        <h1>Componente Frutas</h1>
+    `
+});
 
 // creamos la intancia de vue
 Vue.filter('mayusculas', value => value.toUpperCase());
